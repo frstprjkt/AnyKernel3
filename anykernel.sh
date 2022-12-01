@@ -4,13 +4,19 @@
 ## AnyKernel setup
 # begin properties
 properties() { '
-kernel.string=Lizard Kernel 4.9 for RMX1941
+kernel.string=Lizard Kernel 4.19 for realme RM6765
 do.devicecheck=1
 do.modules=0
 do.systemless=1
 do.cleanup=1
 do.cleanuponabort=0
 device.name1=RMX1941
+device.name2=RMX1943
+device.name3=RMX1945
+device.name4=RMX2185
+device.name5=RMX2189
+device.name6=RMX3061
+device.name7=RMX3063
 supported.versions=
 supported.patchlevels=
 '; } # end properties
