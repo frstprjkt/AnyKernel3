@@ -522,6 +522,34 @@ do_modules() {
   fi;
   cd $AKHOME;
 }
+dynamic_dtbo() {
+  [ "$(file_getprop anykernel.sh do.dynamic_dtbo)" == 1 ] || return 1;
+  local defaultdtbo device devicename match product testname vendordevice vendorproduct;
+  ui_print "Checking DTBO patches..."
+  defaultdtbo=$(file_getprop anykernel.sh default.dtbo)
+  device=$(getprop ro.product.device 2>/dev/null);
+  product=$(getprop ro.build.product 2>/dev/null);
+  vendordevice=$(getprop ro.product.vendor.device 2>/dev/null);
+  vendorproduct=$(getprop ro.vendor.product.device 2>/dev/null);
+  for testname in $(grep '^device.name.*=' anykernel.sh | cut -d= -f2-); do
+    for devicename in $device $product $vendordevice $vendorproduct; do
+      if [ "$devicename" == "$testname" ]; then
+        match=1;
+        ui_print "Applying DTBO patch for device: $testname";
+        cp $AKHOME/$testname/* $AKHOME/.
+        ui_print "DTBO files copied successfully!";
+        ui_print " ";
+        break 2;
+      fi;
+    done;
+  done;
+  if [ ! "$match" ]; then
+    ui_print "No matching DTBO patch found for your device.";
+    ui_print "Using $defaultdtbo DTBO patch...";
+    ui_print " ";
+    cp $AKHOME/$defaultdtbo/* $AKHOME/.
+  fi;
+}
 
 show_progress 1.34 25;
 ui_print " ";
@@ -561,6 +589,7 @@ do_devicecheck;
 do_versioncheck;
 do_levelcheck;
 do_vendorlevelcheck;
+dynamic_dtbo;
 
 ui_print "Installing...";
 # hack to maintain support for anykernel.sh files that weren't updated correctly along with the AK core
