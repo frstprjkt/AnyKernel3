@@ -5,11 +5,17 @@
 # global properties
 properties() { '
 kernel.string=Valeryn kernel by frstprjkt@GitHub
-do.devicecheck=0
+do.devicecheck=1
 do.modules=0
 do.systemless=0
 do.cleanup=1
 do.cleanuponabort=0
+device.name1=citrus
+device.name2=lime
+device.name3=lemon
+device.name4=pomelo
+device.name5=juice
+device.name6=chime
 supported.versions=
 supported.patchlevels=
 supported.vendorpatchlevels=
