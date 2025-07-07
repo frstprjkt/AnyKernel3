@@ -536,7 +536,7 @@ dynamic_dtbo() {
       if [ "$devicename" == "$testname" ]; then
         match=1;
         ui_print "Applying DTBO patch for device: $testname";
-        cp $AKHOME/$testname/* $AKHOME/.
+        mv -f $AKHOME/$testname/* $AKHOME;
         ui_print "DTBO files copied successfully!";
         ui_print " ";
         break 2;
@@ -547,7 +547,7 @@ dynamic_dtbo() {
     ui_print "No matching DTBO patch found for your device.";
     ui_print "Using $defaultdtbo DTBO patch...";
     ui_print " ";
-    cp $AKHOME/$defaultdtbo/* $AKHOME/.
+    mv -f $AKHOME/$defaultdtbo/* $AKHOME;
   fi;
 }
 
